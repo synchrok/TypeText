@@ -13,6 +13,11 @@ Text.TypeText("Some text", 0.05f);
 ```csharp
 UILabel.TypeText("Some text", 0.05f);
 ```
+- **Common:**
+```csharp
+if (Text.IsSkippable())
+  Text.SkipTypeText();
+```
 
 
 Features
@@ -20,6 +25,7 @@ Features
 - **Support Text Speed**: ```[speed=0.05]Hello! my name is[speed=0.2]typetext.```
 - **Support uGUI Tags**: ```<b><i><size><color>...```
 - **Support NGUI Tags**: ```[b][i][s][u][sup][sub][FFFFFF][-]...```
+- **Support Skip**
 - **Unity4/Unity5 Compatible**
 - **Very Simple**
 
