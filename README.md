@@ -26,4 +26,5 @@ Features
 
 Screenshots
 --------
-...
+![TypeText Screenshot](https://raw.githubusercontent.com/synchrok/TypeText/master/Screenshots/screenshot_1.PNG)
+
