@@ -26,4 +26,5 @@ Features
 
 Screenshots
 --------
-...
+![TypeText Screenshot GIF](https://cloud.githubusercontent.com/assets/1309940/11761765/f897ff48-a112-11e5-97c7-f9bbdef387bc.gif)
+![TypeText Screenshot](https://cloud.githubusercontent.com/assets/1309940/11761719/06acaf9a-a111-11e5-8c35-1ec0bc06b470.PNG)
