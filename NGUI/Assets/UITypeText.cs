@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-// 한글자씩 입력되는 효과를 구현해주는 컴포넌트
 [RequireComponent(typeof(UILabel))]
 public class UITypeText : MonoBehaviour {
 
@@ -41,12 +40,6 @@ public class UITypeText : MonoBehaviour {
         _typeTextCoroutine = null;
         label.text = _finalText;
     }
-
-    // 속도 조절을 지원함 (기본속도는 0.05s)
-    // 예) [speed=0.5]안녕하세요? [speed=0.05]저는 전우성입니다. ㅋㅋ
-
-    // 색상 태그도 지원함
-    // 예) 안녕하세요 [FFFF00]우유들컹[-]입니다. [ff0000]반가워요![-]ㅎㅎ고쳤냐?
 
     public IEnumerator TypeText(string text) {
         var len = text.Length;
