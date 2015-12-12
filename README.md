@@ -38,4 +38,4 @@ Screenshots
 
 License
 -------
-**TypeText** is under MIT license. See the LICENSE file for more info.
+**TypeText** is under MIT license. See the [LICENSE](LICENSE) file for more info.
