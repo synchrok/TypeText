@@ -17,7 +17,7 @@ public class Test_NGUI : MonoBehaviour {
     private void ShowScript() {
         if (scripts.Count <= 0)
             return;
-        label.TypeText(scripts.Dequeue());
+        label.TypeText(scripts.Dequeue(), onComplete: () => Debug.Log("TypeText Complete"));
     }
 
     public void OnClickWindow() {

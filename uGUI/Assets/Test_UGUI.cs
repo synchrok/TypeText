@@ -18,9 +18,11 @@ public class Test_UGUI : MonoBehaviour {
     }
 
     private void ShowScript() {
-        if (scripts.Count <= 0)
+        if (scripts.Count <= 0) {
             return;
-        text.TypeText(scripts.Dequeue());
+        }
+
+        text.TypeText(scripts.Dequeue(), onComplete: () => Debug.Log("TypeText Complete"));
     }
 
     public void OnClickWindow() {

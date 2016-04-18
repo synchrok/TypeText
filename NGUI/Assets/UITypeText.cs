@@ -3,6 +3,7 @@ using UnityEngine;
 
 [RequireComponent(typeof(UILabel))]
 public class UITypeText : MonoBehaviour {
+    public delegate void OnComplete();
 
     [SerializeField]
     private float _defaultSpeed = 0.05f;
@@ -11,6 +12,7 @@ public class UITypeText : MonoBehaviour {
     private string _finalText;
     private Coroutine _typeTextCoroutine;
     private static readonly string[] _nguiSymbols = { "b", "u", "i", "s", "sup", "sub", "-" };
+    private OnComplete _onCompleteCallback;
 
     private void Init() {
         if (label == null)
@@ -36,9 +38,14 @@ public class UITypeText : MonoBehaviour {
     }
 
     public void SkipTypeText() {
-        StopCoroutine(_typeTextCoroutine);
+        if (_typeTextCoroutine != null)
+            StopCoroutine(_typeTextCoroutine);
         _typeTextCoroutine = null;
+
         label.text = _finalText;
+
+        if (_onCompleteCallback != null)
+            _onCompleteCallback();
     }
 
     public IEnumerator TypeText(string text) {
@@ -84,7 +91,7 @@ public class UITypeText : MonoBehaviour {
                     i += (3 + _nguiSymbols[j].Length) - 1;
                     symbolDetected = true;
                     break;
-                }
+                }      
             }
 
             if (symbolDetected) continue;
@@ -94,6 +101,9 @@ public class UITypeText : MonoBehaviour {
         }
 
         _typeTextCoroutine = null;
+
+        if (_onCompleteCallback != null)
+            _onCompleteCallback();
     }
 
     private string ReplaceSpeed(string text) {
@@ -122,17 +132,22 @@ public class UITypeText : MonoBehaviour {
         return _typeTextCoroutine != null;
     }
 
+    public void SetOnComplete(OnComplete onComplete) {
+        _onCompleteCallback = onComplete;
+    }
+
 }
 
 public static class UITypeTextUtility {
 
-    public static void TypeText(this UILabel label, string text, float speed = 0.05f) {
+    public static void TypeText(this UILabel label, string text, float speed = 0.05f, UITypeText.OnComplete onComplete = null) {
         var typeText = label.GetComponent<UITypeText>();
         if (typeText == null) {
             typeText = label.gameObject.AddComponent<UITypeText>();
         }
 
         typeText.SetText(text, speed);
+        typeText.SetOnComplete(onComplete);
     }
 
     public static bool IsSkippable(this UILabel label) {

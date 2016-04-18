@@ -4,6 +4,7 @@ using UnityEngine.UI;
 
 [RequireComponent(typeof(Text))]
 public class TypeTextComponent : MonoBehaviour {
+    public delegate void OnComplete();
 
     [SerializeField]
     private float _defaultSpeed = 0.05f;
@@ -14,7 +15,8 @@ public class TypeTextComponent : MonoBehaviour {
     private Coroutine _typeTextCoroutine;
 
     private static readonly string[] _uguiSymbols = { "b", "i" }; 
-    private static readonly string[] _uguiCloseSymbols = { "b", "i", "size", "color" }; 
+    private static readonly string[] _uguiCloseSymbols = { "b", "i", "size", "color" };
+    private OnComplete _onCompleteCallback;
 
     private void Init() {
         if (label == null)
@@ -40,9 +42,14 @@ public class TypeTextComponent : MonoBehaviour {
     }
 
     public void SkipTypeText() {
-        StopCoroutine(_typeTextCoroutine);
+        if (_typeTextCoroutine != null)
+            StopCoroutine(_typeTextCoroutine);
         _typeTextCoroutine = null;
+
         label.text = _finalText;
+
+        if (_onCompleteCallback != null)
+            _onCompleteCallback();
     }
 
     public IEnumerator TypeText(string text) {
@@ -133,6 +140,9 @@ public class TypeTextComponent : MonoBehaviour {
         }
 
         _typeTextCoroutine = null;
+
+        if (_onCompleteCallback != null)
+            _onCompleteCallback();
     }
 
     private string ReplaceSpeed(string text) {
@@ -161,17 +171,22 @@ public class TypeTextComponent : MonoBehaviour {
         return _typeTextCoroutine != null;
     }
 
+    public void SetOnComplete(OnComplete onComplete) {
+        _onCompleteCallback = onComplete;
+    }
+
 }
 
 public static class TypeTextComponentUtility {
 
-    public static void TypeText(this Text label, string text, float speed = 0.05f) {
+    public static void TypeText(this Text label, string text, float speed = 0.05f, TypeTextComponent.OnComplete onComplete = null) {
         var typeText = label.GetComponent<TypeTextComponent>();
         if (typeText == null) {
             typeText = label.gameObject.AddComponent<TypeTextComponent>();
         }
 
         typeText.SetText(text, speed);
+        typeText.SetOnComplete(onComplete);
     }
 
     public static bool IsSkippable(this Text label) {

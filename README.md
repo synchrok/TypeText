@@ -26,7 +26,8 @@ Features
 - **Support uGUI Tags**: ```<b><i><size><color>...```
 - **Support NGUI Tags**: ```[b][i][s][u][sup][sub][FFFFFF][-]...```
 - **Support Skip**
-- **Unity4/Unity5 Compatible**
+- **Support OnComplete Callback**
+- **Unity4/5 Compatible**
 - **Very Simple**
 
 
